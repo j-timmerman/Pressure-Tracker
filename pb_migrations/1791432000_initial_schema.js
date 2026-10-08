@@ -1,27 +1,17 @@
 migrate(
   (app) => {
-    const users = new Collection({
-      type: 'auth',
-      name: 'users',
-      listRule: null,
-      viewRule: 'id = @request.auth.id',
-      createRule: null,
-      updateRule: 'id = @request.auth.id',
-      deleteRule: null,
-      manageRule: null,
-      authRule: '',
-      fields: [
-        {
-          name: 'name',
-          type: 'text',
-          max: 100,
-        },
-      ],
-      passwordAuth: {
-        enabled: true,
-        identityFields: ['email'],
-      },
-    });
+    // PocketBase creates the default users auth collection in its system
+    // migrations. Configure that collection rather than creating a duplicate.
+    const users = app.findCollectionByNameOrId('users');
+    users.listRule = null;
+    users.viewRule = 'id = @request.auth.id';
+    users.createRule = null;
+    users.updateRule = 'id = @request.auth.id';
+    users.deleteRule = null;
+    users.manageRule = null;
+    users.authRule = '';
+    users.passwordAuth.enabled = true;
+    users.passwordAuth.identityFields = ['email'];
     app.save(users);
 
     const profiles = new Collection({
@@ -50,6 +40,13 @@ migrate(
           required: true,
           min: 3,
           max: 100,
+        },
+        { name: 'created', type: 'autodate', onCreate: true },
+        {
+          name: 'updated',
+          type: 'autodate',
+          onCreate: true,
+          onUpdate: true,
         },
       ],
       indexes: [
@@ -94,6 +91,13 @@ migrate(
           required: true,
           min: 1,
           max: 100,
+        },
+        { name: 'created', type: 'autodate', onCreate: true },
+        {
+          name: 'updated',
+          type: 'autodate',
+          onCreate: true,
+          onUpdate: true,
         },
       ],
       indexes: [
@@ -153,6 +157,13 @@ migrate(
           max: 120,
         },
         { name: 'watch_levels', type: 'json', maxSize: 2000 },
+        { name: 'created', type: 'autodate', onCreate: true },
+        {
+          name: 'updated',
+          type: 'autodate',
+          onCreate: true,
+          onUpdate: true,
+        },
       ],
       indexes: [
         'CREATE UNIQUE INDEX idx_user_settings_user ON user_settings (user_id)',
@@ -203,6 +214,13 @@ migrate(
           cascadeDelete: false,
         },
         { name: 'location_label', type: 'text', max: 200 },
+        { name: 'created', type: 'autodate', onCreate: true },
+        {
+          name: 'updated',
+          type: 'autodate',
+          onCreate: true,
+          onUpdate: true,
+        },
       ],
       indexes: [
         'CREATE INDEX idx_pressure_journal_user_occurred ON pressure_app_journal_entries (user_id, occurred_at DESC)',
@@ -216,7 +234,6 @@ migrate(
       'user_settings',
       'saved_locations',
       'pressure_app_user_profiles',
-      'users',
     ]) {
       app.delete(app.findCollectionByNameOrId(name));
     }
