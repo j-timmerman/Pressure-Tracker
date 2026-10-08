@@ -1,0 +1,107 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  font-family:
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: linear-gradient(
+    135deg,
+    var(--mantine-color-white) 0%,
+    var(--mantine-color-blue-0) 100%
+  );
+}
+
+.app-header {
+  background: var(--mantine-color-blue-9);
+  border-color: var(--mantine-color-blue-9);
+}
+
+.app-header__content {
+  background: transparent;
+}
+
+.app-navbar {
+  background: var(--mantine-color-gray-0);
+  border-color: var(--mantine-color-gray-2);
+}
+
+.app-navbar .mantine-NavLink-root {
+  color: var(--mantine-color-gray-7);
+}
+
+.app-navbar .mantine-NavLink-root:hover,
+.app-navbar .mantine-NavLink-root[data-active] {
+  color: var(--mantine-color-blue-9);
+  background: var(--mantine-color-blue-0);
+}
+
+.loading-state {
+  animation: loading-state-enter 160ms ease-out;
+}
+
+@keyframes loading-state-enter {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .loading-state {
+    animation: none;
+  }
+}
+
+.pressure-chart-scroll {
+  max-width: 100%;
+  overflow-x: auto;
+  overscroll-behavior-inline: contain;
+  scrollbar-gutter: stable;
+  -webkit-overflow-scrolling: touch;
+}
+
+.pressure-chart-scroll__content {
+  width: 100%;
+  min-width: 680px;
+}
+
+.pressure-reading {
+  font-size: clamp(1.8rem, 4vw, 2.2rem);
+  letter-spacing: -0.035em;
+  font-variant-numeric: tabular-nums;
+}
+
+.pressure-sparkline {
+  flex: 0 1 132px;
+  width: 35%;
+  min-width: 90px;
+}
+
+.journal-entry-card {
+  transition:
+    border-color 160ms ease,
+    box-shadow 160ms ease;
+}
+
+.journal-entry-card:hover,
+.journal-entry-card:focus-visible {
+  border-color: var(--mantine-color-blue-3);
+  box-shadow: 0 4px 14px rgb(23 54 93 / 8%);
+}
+
+.journal-entry-card:focus-visible {
+  outline: 2px solid var(--mantine-color-blue-6);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .journal-entry-card {
+    transition: none;
+  }
+}

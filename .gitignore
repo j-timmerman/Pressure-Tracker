@@ -1,0 +1,15 @@
+node_modules
+pb_data/
+pocketbase
+pocketbase.exe
+.env
+.env.*
+!.env.example
+
+# Editor directories and files
+.vscode/*
+build/
+dist/
+!.vscode/extensions.json
+.idea
+
