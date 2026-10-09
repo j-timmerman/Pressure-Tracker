@@ -14,6 +14,10 @@ migrate(
     users.passwordAuth.identityFields = ['email'];
     app.save(users);
 
+    // Keep the former table and snake_case field names so the compatibility
+    // services can preserve the frontend's existing data contracts.
+    // `created` and `updated` are explicit because custom collection
+    // definitions do not receive those fields automatically.
     const profiles = new Collection({
       type: 'base',
       name: 'pressure_app_user_profiles',

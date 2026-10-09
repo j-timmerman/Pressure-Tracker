@@ -2,6 +2,8 @@ onRecordCreate(
   (event) => {
     event.next();
 
+    // Replaces the previous database-side profile creation behavior so every
+    // new PocketBase auth record receives its matching application profile.
     const profiles = event.app.findCollectionByNameOrId(
       'pressure_app_user_profiles'
     );
@@ -18,6 +20,8 @@ onRecordCreate(
   'users'
 );
 
+// Enforce cross-field journal entry constraints. These were previously handled by
+// the relational schema; PocketBase field options only validate one field.
 onRecordValidate(
   (event) => {
     const record = event.record;
@@ -72,6 +76,8 @@ onRecordValidate(
   'pressure_app_journal_entries'
 );
 
+// Enforce that user settings can only reference locations that belong to the user.
+// Relation existence is built in, but ownership must be checked explicitly.
 onRecordValidate(
   (event) => {
     const locationId = event.record.getString('default_location_id');
@@ -96,6 +102,7 @@ onRecordValidate(
   'user_settings'
 );
 
+// Enforce that journal entries can only reference locations that belong to the user.
 onRecordValidate(
   (event) => {
     const locationId = event.record.getString('location_id');

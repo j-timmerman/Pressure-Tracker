@@ -24,10 +24,15 @@ async function getFirstLocation(userId) {
   );
 }
 
+// Location service CRUD operations
 export const locationService = {
+
+  // Returns the user's saved location, preferring the configured default if present.
   async getSaved(userId) {
     const settings = await getSettings(userId);
 
+    // Match the prior query behavior: prefer the configured default, then fall
+    // back to the user's oldest saved location if that reference is absent.
     if (settings?.default_location_id) {
       const location = await getOptionalRecord(() =>
         pocketbase
@@ -40,6 +45,8 @@ export const locationService = {
     return mapLocation(await getFirstLocation(userId));
   },
 
+  // Saves a location for the user in both the locations and settings collections, optionally
+  // creating the settings record if it doesn't exist yet. 
   async save(userId, place, existingId) {
     const values = {
       label: place.city.slice(0, 100),

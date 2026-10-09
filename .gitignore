@@ -2,6 +2,7 @@ node_modules
 pb_data/
 pocketbase
 pocketbase.exe
+pb_public/
 .env
 .env.*
 !.env.example

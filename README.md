@@ -1,5 +1,11 @@
 # Pressure forecast
 
+This project was originally built with Supabase and has been converted to use
+PocketBase for authentication and data storage. The original table and field
+shapes were kept where practical, while `services/backend/` provides a
+compatibility layer so the React frontend requires minimal backend-specific
+code.
+
 ## Local Development
 
 Run the dev server
@@ -91,6 +97,28 @@ For a home-server deployment, replace `127.0.0.1` with the hostname or reverse
 proxy address used by the browser. Keep superuser credentials out of `.env`
 files exposed to Vite and restrict the administration dashboard to the local
 network or VPN when possible.
+
+## Serving the frontend using PocketBase
+
+Build the frontend `dist` folder
+
+```bash
+npm run build
+```
+
+Create a folder called `pb_public` at the project root and copy the contents of the `dist` folder into it. Then start PocketBase.
+
+Windows Command Prompt:
+
+```bat
+pocketbase.exe serve
+```
+
+macOS or Linux:
+
+```bash
+./pocketbase serve
+```
 
 ## TO-DO
 

@@ -5,6 +5,7 @@ const USERS_COLLECTION = 'users';
 function currentSession(record = pocketbase.authStore.record) {
   if (!pocketbase.authStore.isValid || !record) return null;
 
+  // Adapt PocketBase's auth store to the session shape expected by the app.
   return {
     access_token: pocketbase.authStore.token,
     user: {
@@ -30,6 +31,8 @@ export const authService = {
   },
 
   async signUpWithPassword(email, password, fullName) {
+    // Retained as part of the backend service contract. The current collection
+    // rules disable public signup, so normal users are created by an admin.
     await pocketbase.collection(USERS_COLLECTION).create({
       email,
       password,

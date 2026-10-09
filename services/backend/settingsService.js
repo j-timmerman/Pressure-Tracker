@@ -5,6 +5,7 @@ import { getOptionalRecord } from './pocketbaseUtils';
 const SETTINGS_COLLECTION = 'user_settings';
 const HPA_TO_INHG = 0.02953;
 
+// Functions to round and convert pressure values between hPa and inHg, preserving the number of decimal places based on the target unit.
 function roundValue(value, decimals) {
   if (value === null || value === undefined || Number.isNaN(Number(value))) {
     return value;
@@ -29,6 +30,7 @@ function convertPressureValue(value, fromUnit, toUnit) {
   return roundValue(convertedValue, toUnit === 'inHg' ? 2 : 1);
 }
 
+// Find the user's settings record in the PocketBase collection, returning null if not found.
 async function findSettings(userId) {
   const filter = pocketbase.filter('user_id = {:userId}', { userId });
   return getOptionalRecord(() =>
@@ -45,7 +47,10 @@ function mapSettings(record) {
   };
 }
 
+// Save the user's settings record, either updating an existing record or creating a new one with default values.
 async function saveSettings(userId, existing, values) {
+  // PocketBase has no client-side upsert helper, so preserve the former upsert
+  // behavior by updating the user's singleton record or creating its defaults.
   const record = existing
     ? await pocketbase
         .collection(SETTINGS_COLLECTION)
@@ -63,11 +68,13 @@ async function saveSettings(userId, existing, values) {
   return mapSettings(record);
 }
 
+// Settings service CRUD operations
 export const settingsService = {
   async get(userId) {
     return mapSettings(await findSettings(userId));
   },
 
+  // Update the user's pressure unit and convert existing watch levels to the new unit if necessary.
   async updatePressureUnit(userId, pressureUnit) {
     const existing = await findSettings(userId);
     const previous = mapSettings(existing);
@@ -83,7 +90,8 @@ export const settingsService = {
       watch_levels: convertedWatchLevels,
     });
   },
-
+ 
+  // Update the user's watch levels, normalizing and validating the input values before saving.
   async updateWatchLevels(userId, watchLevels) {
     const existing = await findSettings(userId);
     const activeUnit = existing?.pressure_unit || DEFAULT_PRESSURE_UNIT;

@@ -8,6 +8,7 @@ function mapProfile(record) {
 }
 
 export const profileService = {
+  // Query the profile collection with a filter on the auth_user_id field to get the profile ID.
   async getByAuthUserId(authUserId) {
     const filter = pocketbase.filter('auth_user_id = {:authUserId}', {
       authUserId,
@@ -16,16 +17,6 @@ export const profileService = {
       pocketbase.collection(PROFILE_COLLECTION).getFirstListItem(filter)
     );
     return mapProfile(record);
-  },
-
-  async getByUsername(username) {
-    const filter = pocketbase.filter('username = {:username}', { username });
-    const record = await getOptionalRecord(() =>
-      pocketbase.collection(PROFILE_COLLECTION).getFirstListItem(filter, {
-        fields: 'id',
-      })
-    );
-    return record ? { id: record.id } : null;
   },
 
   async updateProfile(profileId, updates) {

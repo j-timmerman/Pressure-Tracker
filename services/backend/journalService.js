@@ -8,9 +8,13 @@ import {
 
 const JOURNAL_COLLECTION = 'pressure_app_journal_entries';
 
+
+// Journal entry conversion functions between the PocketBase data shape and the frontend data shape.
 function mapEntry(record) {
   if (!record) return null;
 
+  // Translate PocketBase empty values and timestamps back to the data shape
+  // already used throughout the frontend.
   return withTimestamps({
     ...record,
     ended_at: nullableString(record.ended_at),
@@ -28,6 +32,8 @@ function mapEntry(record) {
 }
 
 function toPocketBaseValues(values) {
+  // PocketBase stores empty optional primitive fields using their zero values,
+  // so convert frontend nulls before sending a create or update request.
   return {
     occurred_at: values.occurred_at,
     ended_at: values.ended_at || '',
@@ -44,6 +50,7 @@ function toPocketBaseValues(values) {
   };
 }
 
+// Validates the values for a journal entry before creating or updating it. Throws an error if any validation fails.
 function validateEntry(values) {
   if (!values.symptoms?.trim()) {
     throw new Error('Symptoms are required.');
@@ -94,6 +101,7 @@ function requireUser(userId) {
   if (!userId) throw new Error('You must be signed in to modify journal entries.');
 }
 
+// Journal service CRUD operations
 export const journalService = {
   async list(userId) {
     const filter = pocketbase.filter('user_id = {:userId}', { userId });
