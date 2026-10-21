@@ -51,7 +51,7 @@ function toPocketBaseValues(values) {
 }
 
 // Validates the values for a journal entry before creating or updating it. Throws an error if any validation fails.
-function validateEntry(values) {
+export function validateEntry(values) {
   if (!values.symptoms?.trim()) {
     throw new Error('Symptoms are required.');
   }

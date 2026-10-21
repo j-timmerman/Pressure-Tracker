@@ -13,6 +13,7 @@ it wherever that address appears.
 
 Prerequisites: git, Node.js with npm, wget, unzip, ufw, and sudo access.
 
+
 ## 1. Clone the repository
 
 Placeholders:
@@ -32,6 +33,7 @@ cd <repository>
 All remaining commands are run from this project directory unless stated
 otherwise.
 
+
 ## 2. Create the .env file
 
 ```bash
@@ -48,9 +50,10 @@ VITE_POCKETBASE_ADMIN_URL=http://127.0.0.1:8090/_/
 These values are read at build time, so the file must exist before step 4.
 If they change later, rebuild the frontend.
 
+
 ## 3. Download PocketBase and open the firewall port
 
-### Download and unpack
+### Download
 
 Download and unpack PocketBase v0.40.5 into the project directory:
 
@@ -59,7 +62,7 @@ wget https://github.com/pocketbase/pocketbase/releases/download/v0.40.5/pocketba
 unzip pocketbase_0.40.5_linux_amd64.zip
 ```
 
-### Open the firewall port
+### Firewall
 
 Allow PocketBase's default port (8090) through the firewall:
 
@@ -67,6 +70,7 @@ Allow PocketBase's default port (8090) through the firewall:
 sudo ufw allow 8090
 sudo ufw reload
 ```
+
 
 ## 4. Build the frontend and copy it into pb_public
 
@@ -80,9 +84,10 @@ mkdir -p pb_public
 cp -a dist/. pb_public/
 ```
 
+
 ## 5. Start PocketBase and create the superuser
 
-### Start the server
+### Start
 
 ```bash
 ./pocketbase serve --http=0.0.0.0:8090
@@ -108,17 +113,23 @@ Placeholders:
 ./pocketbase superuser create <email> <password>
 ```
 
+
 ## 6. Verify
 
-- App: http://192.168.40.131:8090
-- Admin: http://192.168.40.131:8090/_/#/login
+```txt
+App:    http://192.168.40.131:8090
+Admin:  http://192.168.40.131:8090/_/#/login
+```
 
 Once both load, stop the foreground process with Ctrl+C before setting up
 the service in step 7. Otherwise the service cannot bind to port 8090.
 
+
 ## 7. Run as a systemd service
 
-### Create the service file
+### Service file
+
+Create the service file:
 
 ```bash
 sudo nano /etc/systemd/system/pocketbase.service
@@ -155,7 +166,7 @@ LimitNOFILE=4096
 WantedBy=multi-user.target
 ```
 
-### Enable and start the service
+### Enable and start
 
 Load, enable at boot, start, and check the service:
 
@@ -165,11 +176,12 @@ sudo systemctl enable --now pocketbase
 sudo systemctl status pocketbase --no-pager
 ```
 
-### View logs
+### Logs
 
 ```bash
 sudo journalctl -u pocketbase -f
 ```
+
 
 ## Stopping the service
 
@@ -182,6 +194,7 @@ To start it again:
 ```bash
 sudo systemctl start pocketbase
 ```
+
 
 ## Updating
 
