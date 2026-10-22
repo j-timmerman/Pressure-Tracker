@@ -7,6 +7,7 @@ vi.mock('../pocketbaseClient', () => ({
 }));
 
 import { validateEntry } from '../journalService';
+import { validateEndedAt } from '../../../src/features/journal/utils/formValues.js';
 
 // A minimal entry that passes every check. Each test overrides only the
 // field it is exercising.
@@ -95,5 +96,15 @@ describe('validateEntry', () => {
         validateEntry(validEntry({ is_ongoing: true }))
       ).not.toThrow();
     });
+  });
+});
+
+describe('validateEndedAt', () => {
+  it('rejects an end time equal to the start time', () => {
+    expect(
+      validateEndedAt('2024-05-01T10:00', {
+        occurredAt: '2024-05-01T10:00',
+      })
+    ).toBe('End time must be after the start time');
   });
 });

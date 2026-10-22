@@ -46,9 +46,8 @@ backend implementation. Errors exposed to the frontend must have a useful
 
 ## Commands
 
-Do not install dependencies or run build, lint, or test commands unless the
-user explicitly asks. The previous backend integration tests were intentionally
-removed and should not be treated as missing files.
+Do not install dependencies or run build or test commands unless the
+user explicitly asks. Running linting or formatting is allowed
 
 ## Files
 

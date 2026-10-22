@@ -19,6 +19,7 @@ import { useSaveJournalEntry } from '../hooks/useJournal';
 import {
   createJournalFormValues,
   createJournalPayload,
+  validateEndedAt,
 } from '../utils/formValues';
 import { toDateTimeInput } from '../utils/journal';
 
@@ -49,16 +50,7 @@ export function JournalEntryForm({
         Number.isFinite(new Date(value).getTime())
           ? null
           : 'Enter a valid date and time',
-      endedAt: (value, values) => {
-        if (!value) return null;
-        const start = new Date(values.occurredAt).getTime();
-        const end = new Date(value).getTime();
-        if (!Number.isFinite(end)) return 'Enter a valid end date and time';
-        if (Number.isFinite(start) && end < start) {
-          return 'End time must be after the start time';
-        }
-        return null;
-      },
+      endedAt: validateEndedAt,
       symptoms: (value) => {
         const length = value.trim().length;
         if (length === 0) return 'Describe your symptoms';

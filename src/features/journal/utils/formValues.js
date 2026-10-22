@@ -1,5 +1,16 @@
 import { findNearestPressure, toDateTimeInput } from './journal.js';
 
+export function validateEndedAt(value, values) {
+  if (!value) return null;
+  const start = new Date(values.occurredAt).getTime();
+  const end = new Date(value).getTime();
+  if (!Number.isFinite(end)) return 'Enter a valid end date and time';
+  if (Number.isFinite(start) && end <= start) {
+    return 'End time must be after the start time';
+  }
+  return null;
+}
+
 export function getJournalLocation(initialEntry, location) {
   return {
     id: initialEntry?.location_id ?? location?.id ?? null,
