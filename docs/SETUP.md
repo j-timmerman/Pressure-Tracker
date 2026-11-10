@@ -16,18 +16,9 @@ Prerequisites: git, Node.js with npm, wget, unzip, ufw, and sudo access.
 
 ## 1. Clone the repository
 
-Placeholders:
-
-```txt
-<username>    - GitHub username used to authenticate
-<token>       - GitHub personal access token for that user
-<repo-owner>  - GitHub account or organization that owns the repository
-<repository>  - repository name
-```
-
 ```bash
-git clone https://<username>:<token>@github.com/<repo-owner>/<repository>.git
-cd <repository>
+git clone https://github.com/j-timmerman/Pressure-Tracker.git
+cd Pressure-Tracker
 ```
 
 All remaining commands are run from this project directory unless stated
