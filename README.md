@@ -1,10 +1,4 @@
-# Pressure forecast
-
-This project was originally built with Supabase and has been converted to use
-PocketBase for authentication and data storage. The original table and field
-shapes were kept where practical, while `services/backend/` provides a
-compatibility layer so the React frontend requires minimal backend-specific
-code.
+# Pressure Tracking App
 
 ## Setup
 
@@ -53,8 +47,3 @@ macOS or Linux:
 ```bash
 ./pocketbase serve
 ```
-
-## TO-DO
-
-- Form, journal, settings unit tests
-- Convert app to TS? -> Lower priority
