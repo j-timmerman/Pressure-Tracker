@@ -1,10 +1,15 @@
-# Pressure forecast
+# Pressure Tracker App
 
-This project was originally built with Supabase and has been converted to use
-PocketBase for authentication and data storage. The original table and field
-shapes were kept where practical, while `services/backend/` provides a
-compatibility layer so the React frontend requires minimal backend-specific
-code.
+## Overview
+
+This app helps users track pressure-related symptoms and weather pressure readings over time. It includes authentication, a journal for entries and symptoms, saved locations, profile settings, and configurable pressure units and watch levels.
+
+This project was built with Supabase and converted to PocketBase for authentication and data storage. Existing table and field names are preserved where practical. The services/backend/ compatibility layer handles PocketBase-specific behavior, including field-name mapping and empty-value conversion.
+
+### Tech Stack
+
+- **Frontend:** React, Vite, Mantine
+- **Database/Auth:** Pocketbase
 
 ## Setup
 

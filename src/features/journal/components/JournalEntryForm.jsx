@@ -44,7 +44,7 @@ export function JournalEntryForm({
       startMigraine,
       endMigraine,
     }),
-    // Input Validation 
+    // Input Validation
     validate: {
       occurredAt: (value) =>
         Number.isFinite(new Date(value).getTime())

@@ -3,7 +3,7 @@
 This document covers cloning the project, building the frontend, running it
 with PocketBase, and installing it as a systemd service.
 
-Placeholders are written in angle brackets, e.g. `<token>`. Replace the whole
+Placeholders are written in angle brackets, e.g. `<email>`. Replace the whole
 thing, including the brackets. Each section lists its placeholders above the
 command or file that uses them.
 
@@ -13,26 +13,15 @@ it wherever that address appears.
 
 Prerequisites: git, Node.js with npm, wget, unzip, ufw, and sudo access.
 
-
 ## 1. Clone the repository
 
-Placeholders:
-
-```txt
-<username>    - GitHub username used to authenticate
-<token>       - GitHub personal access token for that user
-<repo-owner>  - GitHub account or organization that owns the repository
-<repository>  - repository name
-```
-
 ```bash
-git clone https://<username>:<token>@github.com/<repo-owner>/<repository>.git
-cd <repository>
+git clone https://github.com/j-timmerman/Pressure-Tracker.git
+cd Pressure-Tracker
 ```
 
 All remaining commands are run from this project directory unless stated
 otherwise.
-
 
 ## 2. Create the .env file
 
@@ -191,14 +180,8 @@ sudo systemctl start pocketbase
 
 ## Updating the frontend
 
-Placeholders:
-
-```txt
-<project-dir>  - absolute path to the project directory (same as step 7)
-```
-
 ```bash
-cd <project-dir>
+cd Pressure-Tracker
 git pull --ff-only
 npm install
 npm run build

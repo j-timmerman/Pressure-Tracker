@@ -1,11 +1,4 @@
-import {
-  Box,
-  Container,
-  Title,
-  Paper,
-  Text,
-  Stack,
-} from '@mantine/core';
+import { Box, Container, Title, Paper, Text, Stack } from '@mantine/core';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { AuthForm } from '../components/AuthForm';
 import { useAuth } from '../hooks/useAuth';

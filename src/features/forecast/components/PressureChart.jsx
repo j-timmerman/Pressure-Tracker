@@ -127,7 +127,11 @@ export function PressureChart({
           stroke="var(--mantine-color-blue-7)"
           strokeWidth={2.75}
           dot={false}
-          activeDot={{ r: 5, strokeWidth: 2, fill: 'var(--mantine-color-blue-10)' }}
+          activeDot={{
+            r: 5,
+            strokeWidth: 2,
+            fill: 'var(--mantine-color-blue-10)',
+          }}
           connectNulls={false}
           isAnimationActive={false}
         />

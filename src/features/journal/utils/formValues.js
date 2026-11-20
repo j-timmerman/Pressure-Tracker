@@ -105,7 +105,7 @@ export function createJournalPayload(
     : null;
 
   // Determine if the start and end pressure snapshots share the same timestamp
-  // If so, don't record the end pressure. 
+  // If so, don't record the end pressure.
   const sameReadingTime =
     startPressureTime &&
     endPressureTime &&

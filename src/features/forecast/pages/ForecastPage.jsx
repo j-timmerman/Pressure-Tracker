@@ -21,11 +21,10 @@ import { usePressureForecast } from '../hooks/usePressureForecast';
 const HOUR = 60 * 60 * 1000;
 
 export function ForecastPage() {
-
   // Chart default state: show upcoming 5 days of pressure data
   const [direction, setDirection] = useState('upcoming');
   const [duration, setDuration] = useState('5days');
-  
+
   const [rangeNow, setRangeNow] = useState(() => Date.now());
   const saved = useSavedLocation();
   const settings = useUserSettings();
@@ -116,7 +115,7 @@ export function ForecastPage() {
               Mean-sea-level pressure · {pressureUnit} · hourly
             </Text>
             <Text size="sm" c="dimmed">
-              Times shown in{' '} {location.timezone}.
+              Times shown in {location.timezone}.
             </Text>
           </Stack>
           {forecast.isPending && (

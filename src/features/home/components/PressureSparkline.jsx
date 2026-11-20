@@ -30,7 +30,7 @@ export default function PressureSparkline({ data, now }) {
         data={chartData}
         color="blue.7"
         withGradient={true}
-        fillOpacity={.15}
+        fillOpacity={0.15}
         strokeWidth={2}
         connectNulls={false}
       />

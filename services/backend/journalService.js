@@ -10,7 +10,7 @@ const JOURNAL_COLLECTION = 'pressure_app_journal_entries';
 
 
 // Journal entry conversion functions between the PocketBase data shape and the frontend data shape.
-function mapEntry(record) {
+export function mapEntry(record) {
   if (!record) return null;
 
   // Translate PocketBase empty values and timestamps back to the data shape
@@ -31,7 +31,7 @@ function mapEntry(record) {
   });
 }
 
-function toPocketBaseValues(values) {
+export function toPocketBaseValues(values) {
   // PocketBase stores empty optional primitive fields using their zero values,
   // so convert frontend nulls before sending a create or update request.
   return {

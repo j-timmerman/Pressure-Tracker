@@ -124,7 +124,11 @@ export function ProfilePage() {
               Member since{' '}
               {new Date(profile.data.created_at).toLocaleDateString()}
             </Text>
-            <Button type="submit" loading={updateProfile.isPending} style={{ alignSelf: 'flex-start' }} >
+            <Button
+              type="submit"
+              loading={updateProfile.isPending}
+              style={{ alignSelf: 'flex-start' }}
+            >
               Save changes
             </Button>
           </Stack>
