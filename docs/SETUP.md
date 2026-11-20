@@ -50,7 +50,6 @@ VITE_POCKETBASE_ADMIN_URL=http://127.0.0.1:8090/_/
 These values are read at build time, so the file must exist before step 4.
 If they change later, rebuild the frontend.
 
-
 ## 3. Download PocketBase and open the firewall port
 
 ### Download
@@ -71,7 +70,6 @@ sudo ufw allow 8090
 sudo ufw reload
 ```
 
-
 ## 4. Build the frontend and copy it into pb_public
 
 PocketBase serves static files from the pb_public directory next to its
@@ -83,7 +81,6 @@ npm run build
 mkdir -p pb_public
 cp -a dist/. pb_public/
 ```
-
 
 ## 5. Start PocketBase and create the superuser
 
@@ -113,7 +110,6 @@ Placeholders:
 ./pocketbase superuser create <email> <password>
 ```
 
-
 ## 6. Verify
 
 ```txt
@@ -123,7 +119,6 @@ Admin:  http://192.168.40.131:8090/_/#/login
 
 Once both load, stop the foreground process with Ctrl+C before setting up
 the service in step 7. Otherwise the service cannot bind to port 8090.
-
 
 ## 7. Run as a systemd service
 
@@ -182,7 +177,6 @@ sudo systemctl status pocketbase --no-pager
 sudo journalctl -u pocketbase -f
 ```
 
-
 ## Stopping the service
 
 ```bash
@@ -195,8 +189,7 @@ To start it again:
 sudo systemctl start pocketbase
 ```
 
-
-## Updating
+## Updating the frontend
 
 Placeholders:
 

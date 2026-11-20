@@ -53,8 +53,3 @@ macOS or Linux:
 ```bash
 ./pocketbase serve
 ```
-
-## TO-DO
-
-- Form, journal, settings unit tests
-- Convert app to TS? -> Lower priority
